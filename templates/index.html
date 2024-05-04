@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <h2>Your stocks</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set total = namespace(value=0) %}
+        {% set stockVal = namespace(value=0) %}
+        {% for stock in stocks %}
+            {% set stockVal.value = stock["price"] * stock["shares"] %}    
+            <tr>
+                <td>{{ stock["symbol"] }}</td>
+                <td>{{ stock["shares"] }}</td>
+                <td>${{'%0.2f' % stock["price"]|float}}</td>
+                <td>${{'%0.2f' % stockVal.value|float}}</td>
+            </tr>
+            {% set total.value = total.value + stockVal.value %}    
+        {% endfor %}
+        </tbody>
+    </table>
+    <h5 style="text-align: right; padding-right: 10%; font-size: 16px">Stocks: ${{'%0.2f' % total.value|float}}</h5>
+    <h5 style="text-align: right; padding-right: 10%; font-size: 16px">Cash: ${{'%0.2f' % cash|float}}</h5>
+    {% set total.value = total.value + cash %}
+    <h5 style="text-align: right; padding-right: 10%; font-size: 16px">Total Cash: ${{'%0.2f' % total.value|float}}</h5>
+{% endblock %}
