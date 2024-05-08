@@ -1,6 +1,6 @@
 # Stock-Simulator
  
-A personal project for simulating the stock market in real time with fake money.
+A personal python web-app for simulating the stock market in real time with fake money.
 
 API: https://iexcloud.io/console/home
 
